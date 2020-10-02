@@ -1,0 +1,38 @@
+.view_image_body
+{
+    position: fixed;
+    background-color: black;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left:0;
+    opacity: 0.8;
+} 
+
+.view_image
+{
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left:0;
+    position: fixed;
+    cursor: zoom-out;
+} 
+
+.view_image_img
+{
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 95%;
+    max-width: 95%;
+    cursor: zoom-out;
+} 
+
+#timeserie
+{
+    cursor: zoom-in;
+}

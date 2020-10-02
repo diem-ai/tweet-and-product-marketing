@@ -1,0 +1,140 @@
+{% extends "base-site.html" %}
+
+{% block title %} Page Blank {% endblock %} 
+
+{% block content %}
+
+    <div class="my-3 my-md-5">
+        <div class="container">
+
+
+            <div class="row row-cards">
+              <div class="col-lg-12">
+                <div class="row">
+                  <div class="col-sm-12 col-lg-8">
+                    <div class="card">
+                        <center>
+                            <blockquote class="twitter-tweet" data-lang="en">
+                                <a href="https://twitter.com/[[username]]/status/[[tweet_id]]"></a>
+                            </blockquote>
+                            <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        </center>
+                    </div>
+                  </div>
+                  
+                  <!-- vue.js-->
+                  <div id="tweet_view" class="col-sm-12 col-lg-4">
+                    <!-- partie variable -->
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <div class="h2">
+                                Analyse du commentaire
+                            </div>
+                            <div style="margin: 10px;">
+                                <div class="h5">Sentiment positif :</div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-green" :style="{ width: positive_score + '%' }"></div>
+                                </div>
+                            </div>
+                            <div style="margin: 10px;">
+                                <div class="h5">Avis neutre :</div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-blue" :style="{ width: neutral_score + '%' }"></div>
+                                </div>
+                            </div>
+                            <div style="margin: 10px;">
+                                <div class="h5">Sentiment négatif :</div>
+                                <div class="progress progress-sm">
+                                    <div class="progress-bar bg-red" :style="{ width: negative_score + '%' }"></div>
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div v-if="tweet.sentiment.sentiment_score == 'positive'" class="card">
+                      <div class="card-header bg-green">
+                          <h3 class="card-title white maj">Analyse positive :)</h3>
+                      </div>
+                      <div class="card-body">
+                          Yay ! Cette personne est heureuse de vivre et va consommer beaucoup de ce produit qui lui procure une joie intense !
+                      </div>
+                    </div>
+              
+                    <div v-else-if="tweet.sentiment.sentiment_score == 'negative'" class="card">
+                      <div class="card-header bg-red">
+                          <h3 class="card-title white maj">Analyse négative :(</h3>
+                      </div>
+                      <div class="card-body">
+                          Oh bah zut le tweet est négatif c'est si triste....
+                      </div>
+                    </div>
+              
+                    <div v-else-if="tweet.sentiment.sentiment_score == 'neutral'" class="card">
+                      <div class="card-header bg-blue">
+                          <h3 class="card-title white maj">Analyse neutre...</h3>
+                      </div>
+                      <div class="card-body">
+                          Cet utilisateur s'en fout, n'a aucun avis et aucune personnalité. C'est triste...
+                      </div>
+                    </div>
+
+                    <div v-else class="card">
+                        <div class="card-header bg-gray-light">
+                            <h3 class="card-title white maj">Analyse imprécise</h3>
+                        </div>
+                        <div class="card-body">
+                            Impossible de déterminer le sentiment prépondérant sur ce tweet, par manque de données ou par sentiments mitigés.
+                        </div>
+                      </div>
+                    <!-- fin partie variable-->
+                    </div>
+                    <!-- fin vue.js-->
+
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+        try{
+            result = JSON.parse([[tweet | tojson | safe]]);
+            
+            positive = neutral = negative = 0;
+            if(result.sentiment != '') 
+                {
+                    positive = result.sentiment.confidence_scores.positive * 100;
+                    neutral = result.sentiment.confidence_scores.neutral * 100;
+                    negative = result.sentiment.confidence_scores.negative * 100;
+                }
+
+            var app = new Vue({
+                el:'#tweet_view',
+                data: {
+                    positive_score: positive,
+                    neutral_score: neutral,
+                    negative_score: negative,
+                    tweet: result
+                },
+                mounted:function(){
+                    this.tweet_tab_display() 
+                },
+                methods:{
+                    tweet_tab_display:function(){
+                        var tab_tweet = document.getElementById('tweet_tab');
+                        tab_tweet.style.display = "block" ;
+                    }
+                },
+            });
+        } 
+        catch (error) {
+            alert(error);
+        }
+    </script>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
+
+
+
+

@@ -1,0 +1,17 @@
+{% extends "base-site-error.html" %}
+
+{% block title %} Page 403 {% endblock %} 
+
+{% block content %}
+
+    <div class="container text-center">
+        <div class="display-1 text-muted mb-5"><i class="si si-exclamation"></i> Tweet not found</div>
+        <h1 class="h2 mb-3">Oops.. You try to consult a tweet not referenced in our database..</h1>
+        <p class="h4 text-muted font-weight-normal mb-7">We are sorry but you are not authorized to consult this page&hellip;</p>
+        <a class="btn btn-primary" href="/">
+          <i class="fe fe-arrow-left mr-2"></i>Go Home
+        </a>
+    </div>
+
+{% endblock content %}
+
