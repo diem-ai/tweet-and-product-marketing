@@ -53,4 +53,4 @@ Realization of the Smart tweet brief  </br>
 
 ### Credit
 
-This work is a collaboration of Audrey and Mathieu
+This project can not be completed without the help of Andrey and Mathieu
