@@ -1,5 +1,5 @@
 
-# Product's Tweet Sentiment
+# Product's Twitter Sentiment
 Realization of the Smart tweet brief  </br>
 ![](/mainpage.PNG)
 
